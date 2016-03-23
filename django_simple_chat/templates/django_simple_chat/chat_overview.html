@@ -1,0 +1,62 @@
+{% extends "django_simple_chat/base.html" %}
+
+{% block title %}Overview{% endblock %}
+
+{% block content %}
+
+
+<br>
+<div class="container">
+
+<div class="col-md-4 card card-block">
+	<h2 class="card-title"><a href="/">Messages</a></h2>
+	<hr>
+	<div class="input-group">
+      <input type="text" class="form-control" placeholder="Search">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Go!</button>
+      </span>
+    </div>
+    <hr>
+	
+	{% for contact in contacts %}
+		<div class="row">
+			<div class="col-xs-4"></div>
+			<a href="{{contact}}">
+			<div class="col-xs-8">
+				{{contact}}
+				<p class="text-muted">{{ contact.last_message}}</p>
+			</div>
+			</a>
+		</div>
+		<hr>
+	{% endfor %}
+</div>
+
+<div class="col-md-8 card card-block">
+
+	<h3>{{ main_receiver.first_name }} {{ main_receiver.last_name }}</h3>
+	<hr>
+	{% for m_messages in main_messages %}
+		{% if m_messages.messenger == main_user %}
+			{{ m_messages }}
+		{% else %}
+			{{ m_messages }}
+		{% endif %}
+		<hr>
+	{% endfor %}
+	<hr>
+	<fieldset class="form-group">
+		<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+	</fieldset>
+    <button onclick="postjson()" style="float:right" class="save btn btn-success">Save</button>
+</div>
+
+
+
+
+
+
+</div>
+<br>
+{% endblock %}
